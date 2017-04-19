@@ -1582,11 +1582,11 @@ function install_monasca_agent {
 
     (cd /opt/monasca-agent ; sudo virtualenv .)
 
-    (cd /opt/monasca-agent ; sudo ./bin/pip install $MONASCA_AGENT_SRC_DIST)
+    (cd /opt/monasca-agent ; sudo -H -E ./bin/pip install $MONASCA_AGENT_SRC_DIST)
 
-    (cd /opt/monasca-agent ; sudo ./bin/pip install $MONASCA_CLIENT_SRC_DIST)
+    (cd /opt/monasca-agent ; sudo -H -E ./bin/pip install $MONASCA_CLIENT_SRC_DIST)
 
-    (cd /opt/monasca-agent ; sudo ./bin/pip install kafka-python==0.9.2)
+    (cd /opt/monasca-agent ; sudo -H -E ./bin/pip install kafka-python==0.9.2)
 
     sudo chown $STACK_USER:monasca /opt/monasca-agent
 
@@ -1677,7 +1677,7 @@ function install_monasca_horizon_ui {
     git_clone $MONASCA_UI_REPO $MONASCA_UI_DIR $MONASCA_UI_BRANCH
     (cd "${MONASCA_UI_DIR}" ; sudo python setup.py sdist)
 
-    sudo pip install python-monascaclient
+    sudo -H -E pip install python-monascaclient
 
     sudo ln -sf "${MONASCA_UI_DIR}"/monitoring/enabled/_50_admin_add_monitoring_panel.py "${MONASCA_BASE}"/horizon/openstack_dashboard/local/enabled/_50_admin_add_monitoring_panel.py
 
